@@ -6,7 +6,7 @@ class MyPageFlexBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(12, 10, 12, 0),
+      margin: const EdgeInsets.fromLTRB(16, 10, 16, 0),
       height: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),

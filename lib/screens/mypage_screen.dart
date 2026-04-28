@@ -2,69 +2,60 @@ import 'package:flutter/material.dart';
 import '../widgets/mypage/mypage_flex_banner.dart';
 import '../widgets/mypage/mypage_quick_menu.dart';
 import '../widgets/mypage/mypage_profile.dart';
-import '../widgets/mypage/mypage_points.dart';
+import '../widgets/mypage/mypage_simple_info.dart';
 import '../widgets/mypage/mypage_menu_section.dart';
 import '../widgets/mypage/mypage_level_bar.dart';
 
 class MyPageScreen extends StatelessWidget {
   const MyPageScreen({super.key});
 
-  static final _menuSections = [
-    {
-      'title': '활동 내역',
-      'items': [
-        {'icon': '📝', 'label': '내 게시글'},
-        {'icon': '📚', 'label': '내 강좌'},
-        {'icon': '✅', 'label': '체크'},
-        {'icon': '🕐', 'label': '최근 본 게시물'},
-        {'icon': '💬', 'label': '내가 남긴 댓글 🔥'},
-        {'icon': '⭐', 'label': '관심 코인'},
-        {'icon': '👥', 'label': '추천인 내역'},
-        {'icon': '🎁', 'label': '프로모션 내역'},
-      ],
-    },
-    {
-      'title': '코박 서비스',
-      'items': [
-        {'icon': '🛡️', 'label': '서포트오스 선생', 'sub': '초용 숨지 해제 →', 'subColor': const Color(0xFF2563EB)},
-        {'icon': '📋', 'label': '지원 신청', 'sub': '수주 숨지 해제 →', 'subColor': const Color(0xFFEF4444)},
-        {'icon': '🧰', 'label': '툴박스'},
-        {'icon': '📧', 'label': '무제 뉴스레터'},
-      ],
-    },
-    {
-      'title': '설정 및 코박지인',
-      'items': [
-        {'icon': '🔒', 'label': '계정 및 보안'},
-        {'icon': '📣', 'label': '공지하기'},
-        {'icon': '📄', 'label': '약관 및 정책'},
-      ],
-    },
+  static final _activityItems = [
+    {'icon': '📝', 'label': '내 게시글'},
+    {'icon': '📚', 'label': '내 강좌'},
+    {'icon': '✅', 'label': '출석 체크'},
+    {'icon': '🕐', 'label': '최근 본 게시물'},
+    {'icon': '💬', 'label': '내가 남긴 댓글'},
+    {'icon': '⭐', 'label': '관심 코인'},
+    {'icon': '👥', 'label': '추천인 내역'},
+    {'icon': '🎁', 'label': '프로모션 내역'},
+  ];
+
+  static final _serviceItems = [
+    {'icon': '🛡️', 'label': '서포터스 신청'},
+    {'icon': '📋', 'label': '지원 신청'},
+    {'icon': '🧰', 'label': '툴박스'},
+    {'icon': '📧', 'label': '코박 뉴스레터'},
+  ];
+
+  static final _settingItems = [
+    {'icon': '🔒', 'label': '계정 및 보안'},
+    {'icon': '📣', 'label': '공지사항'},
+    {'icon': '📄', 'label': '약관 및 정책'},
+    {'icon': '🙋', 'label': '고객 지원'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F7),
+      backgroundColor: const Color(0xFFF3F3F3),
       body: SafeArea(
         child: Column(
           children: [
-            // 헤더
             Container(
               color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
               child: Row(
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: const Icon(Icons.arrow_back_ios, size: 18, color: Color(0xFF333333)),
+                    child: const Icon(Icons.arrow_back_ios, size: 18, color: Color(0xFF1B1E26)),
                   ),
                   const SizedBox(width: 12),
-                  const Text('마이', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF111111))),
+                  const Text('마이', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF1B1E26))),
                 ],
               ),
             ),
-            const Divider(height: 1, thickness: 1, color: Color(0xFFE0E0E0)),
+            const Divider(height: 1, thickness: 1, color: Color(0xFFEEEEEE)),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
@@ -72,32 +63,11 @@ class MyPageScreen extends StatelessWidget {
                     const MyPageFlexBanner(),
                     const MyPageQuickMenu(),
                     const MyPageProfile(),
-                    const MyPagePoints(),
-                    // 코박 플렉스 왕관 배너
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(12, 8, 12, 0),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                      decoration: BoxDecoration(color: const Color(0xFF1A1A2E), borderRadius: BorderRadius.circular(14), border: Border.all(color: const Color(0xFF333333))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                            decoration: BoxDecoration(color: const Color(0xFF2563EB), borderRadius: BorderRadius.circular(20)),
-                            child: const Text('치린완이', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white)),
-                          ),
-                          Container(
-                            width: 60, height: 50,
-                            decoration: BoxDecoration(color: const Color(0xFF2A2A4A), borderRadius: BorderRadius.circular(8), border: Border.all(color: const Color(0xFF555555))),
-                            child: const Center(child: Text('👑', style: TextStyle(fontSize: 22))),
-                          ),
-                        ],
-                      ),
-                    ),
-                    ..._menuSections.map((section) => MyPageMenuSection(
-                      title: section['title'] as String,
-                      items: (section['items'] as List).cast<Map<String, dynamic>>(),
-                    )),
+                    const MyPageSimpleInfo(),
+                    _Banner2(),
+                    MyPageMenuSection(title: '활동 내역', items: _activityItems.cast<Map<String, dynamic>>()),
+                    MyPageMenuSection(title: '코박 서비스', items: _serviceItems.cast<Map<String, dynamic>>()),
+                    MyPageMenuSection(title: '설정 및 고객 지원', items: _settingItems.cast<Map<String, dynamic>>()),
                     const MyPageLevelBar(),
                     const SizedBox(height: 24),
                   ],
@@ -106,6 +76,23 @@ class MyPageScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _Banner2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+      height: 100,
+      decoration: BoxDecoration(
+        color: const Color(0xFFD9D9D9),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: const Center(
+        child: Text('Banner 2', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xFF4A4F5A))),
       ),
     );
   }
